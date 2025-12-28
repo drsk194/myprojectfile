@@ -29,13 +29,22 @@ public class UserRoleMappingServiceImpl implements UserRoleMappingService {
 		// resolve user
 		Customer user = null;
 		if (mapping.getUser() != null && mapping.getUser().getId() != null) {
-			user = customerRepo.findById(mapping.getUser().getId()).orElse(null);
+			user = customerRepo.findById(mapping.getUser().getId()).orElseThrow(
+				() -> new RuntimeException("Customer not found with id: " + mapping.getUser().getId()));
 		}
 		
 		// resolve role
 		Role role = null;
 		if (mapping.getRole() != null && mapping.getRole().getId() != null) {
-			role = roleRepo.findById(mapping.getRole().getId()).orElse(null);
+			role = roleRepo.findById(mapping.getRole().getId()).orElseThrow(
+				() -> new RuntimeException("Role not found with id: " + mapping.getRole().getId()));
+		}
+		
+		if (user == null) {
+			throw new RuntimeException("User is required");
+		}
+		if (role == null) {
+			throw new RuntimeException("Role is required");
 		}
 		
 		newMapping.setUser(user);
