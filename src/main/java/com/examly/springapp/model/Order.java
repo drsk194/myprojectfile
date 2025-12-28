@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -13,6 +16,7 @@ public class Order {
     
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
     
     private LocalDate orderDate;
@@ -25,9 +29,11 @@ public class Order {
     private OrderStatus orderStatus;
     
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Payment payment;
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<OrderItem> orderItems;
     
     public Order() {}
@@ -36,6 +42,13 @@ public class Order {
         this.customer = customer;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
+    }
+    
+    public Long getId() { 
+        return orderId; 
+    }
+    public void setId(Long id) { 
+        this.orderId = id; 
     }
     
     public Long getOrderId() { 

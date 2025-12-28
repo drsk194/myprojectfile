@@ -12,7 +12,19 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepo repo;
     public CustomerServiceImpl(CustomerRepo repo) { this.repo = repo; }
 
-    @Override public Customer create(Customer customer) { return repo.save(customer); }
+    @Override public Customer create(Customer customer) {
+        Customer newCustomer = new Customer();
+        
+        newCustomer.setFirstName(customer.getFirstName());
+        newCustomer.setLastName(customer.getLastName());
+        newCustomer.setEmail(customer.getEmail());
+        newCustomer.setPhone(customer.getPhone());
+        newCustomer.setStatus(customer.getStatus());
+        newCustomer.setUsername(customer.getUsername());
+        newCustomer.setPasswordHash(customer.getPasswordHash());
+        
+        return repo.save(newCustomer);
+    }
     @Override public List<Customer> findAll() { return repo.findAll(); }
     @Override public Optional<Customer> findById(Long id) { return repo.findById(id); }
     @Override public Customer update(Long id, Customer customer) {

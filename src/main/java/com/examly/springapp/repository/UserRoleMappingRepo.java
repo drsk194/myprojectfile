@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserRoleMappingRepo extends JpaRepository<UserRoleMapping, Long> {
-	List<UserRoleMapping> findByUser_CustomerId(Long userId);
-	List<UserRoleMapping> findByUser_CustomerIdAndRole_RoleId(Long userId, Long roleId);
+	List<UserRoleMapping> findByUser_Id(Long userId);
+	List<UserRoleMapping> findByUser_IdAndRole_Id(Long userId, Long roleId);
 }

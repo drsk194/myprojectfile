@@ -1,6 +1,8 @@
 package com.examly.springapp.model;
 
 import jakarta.persistence.*;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "role")
@@ -11,6 +13,10 @@ public class Role {
     private Long roleId;
     
     private String roleName;
+    
+    @OneToMany(mappedBy = "role")
+    @JsonManagedReference
+    private List<Customer> customers;
     
     public Role() {}
     public Role(String roleName) { 
@@ -36,5 +42,12 @@ public class Role {
     }
     public void setRoleName(String roleName) { 
         this.roleName = roleName; 
+    }
+    
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 }

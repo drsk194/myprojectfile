@@ -12,7 +12,17 @@ public class UserAccountServiceImpl implements UserAccountService {
     private final UserAccountRepo repo;
     public UserAccountServiceImpl(UserAccountRepo repo) { this.repo = repo; }
 
-    @Override public UserAccount create(UserAccount userAccount) { return repo.save(userAccount); }
+    @Override public UserAccount create(UserAccount userAccount) {
+        UserAccount newUserAccount = new UserAccount();
+        
+        newUserAccount.setUsername(userAccount.getUsername());
+        newUserAccount.setPasswordHash(userAccount.getPasswordHash());
+        newUserAccount.setEmail(userAccount.getEmail());
+        newUserAccount.setPhone(userAccount.getPhone());
+        newUserAccount.setStatus(userAccount.getStatus());
+        
+        return repo.save(newUserAccount);
+    }
     @Override public List<UserAccount> findAll() { return repo.findAll(); }
     @Override public Optional<UserAccount> findById(Long id) { return repo.findById(id); }
     @Override public UserAccount update(Long id, UserAccount userAccount) {

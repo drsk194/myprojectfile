@@ -18,7 +18,11 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public Role AddRole(Role role) {
-        return roleRepo.save(role);
+        Role newRole = new Role();
+        
+        newRole.setRoleName(role.getRoleName());
+        
+        return roleRepo.save(newRole);
     }
 
     @Override
@@ -43,11 +47,11 @@ public class RoleServiceImpl implements RoleService{
         if(!roleRepo.existsById(id)){
             return null;
         }
-        Role newRole = roleRepo.findById(id).orElse(null);
-        if(newRole!=null){
-            newRole.setRoleName(role.getRoleName());
+        Role existing = roleRepo.findById(id).orElse(null);
+        if(existing!=null){
+            existing.setRoleName(role.getRoleName());
         }
-        return roleRepo.save(newRole);
+        return roleRepo.save(existing);
     }
 
     @Override

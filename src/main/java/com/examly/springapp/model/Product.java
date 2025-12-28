@@ -16,6 +16,7 @@ public class Product {
     private Integer stockQuantity;
     
     @OneToMany(mappedBy = "product")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<OrderItem> orderItems;
     
     public Product() {}
@@ -24,6 +25,13 @@ public class Product {
         this.productName = productName;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+    
+    public Long getId() { 
+        return productId; 
+    }
+    public void setId(Long id) { 
+        this.productId = id; 
     }
     
     public Long getProductId() { 

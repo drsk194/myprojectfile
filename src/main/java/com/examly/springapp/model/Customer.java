@@ -2,6 +2,9 @@ package com.examly.springapp.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -31,11 +34,17 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private Status status;
     
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @JsonBackReference
+    private Role role;
+    
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonManagedReference
     private Profile profile;
     
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Order> orders;
     
     public Customer() {}
@@ -125,5 +134,12 @@ public class Customer {
     }
     public void setOrders(List<Order> orders) { 
         this.orders = orders; 
+    }
+    
+    public Role getRole() {
+        return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -23,6 +24,7 @@ public class Profile {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
     
     private String address;

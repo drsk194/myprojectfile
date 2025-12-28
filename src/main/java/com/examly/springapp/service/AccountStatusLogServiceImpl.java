@@ -12,7 +12,16 @@ public class AccountStatusLogServiceImpl implements AccountStatusLogService {
 	private final AccountStatusLogRepo repo;
 	public AccountStatusLogServiceImpl(AccountStatusLogRepo repo) { this.repo = repo; }
 
-	@Override public AccountStatusLog create(AccountStatusLog log) { return repo.save(log); }
+	@Override public AccountStatusLog create(AccountStatusLog log) {
+		AccountStatusLog newLog = new AccountStatusLog();
+		
+		newLog.setOldStatus(log.getOldStatus());
+		newLog.setNewStatus(log.getNewStatus());
+		newLog.setChangedAt(log.getChangedAt());
+		newLog.setChangedBy(log.getChangedBy());
+		
+		return repo.save(newLog);
+	}
 	@Override public List<AccountStatusLog> findAll() { return repo.findAll(); }
 	@Override public Optional<AccountStatusLog> findById(Long id) { return repo.findById(id); }
 	@Override public AccountStatusLog update(Long id, AccountStatusLog log) {

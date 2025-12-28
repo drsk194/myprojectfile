@@ -754,7 +754,7 @@ public void Day10_testCreateUser() throws Exception {
             .contentType(MediaType.APPLICATION_JSON)
             .content(requestBody)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.status().isCreated())
             .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("vikram"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("vikram@example.com"))
             .andReturn();

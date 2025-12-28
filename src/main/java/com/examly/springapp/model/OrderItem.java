@@ -11,10 +11,12 @@ public class OrderItem {
     
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"orderItems", "payment", "customer"})
     private Order order;
     
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"orderItems"})
     private Product product;
     
     private Integer quantity;

@@ -16,7 +16,6 @@ public class UserAccount {
     @Column(unique = true)
     private String username;
     @Column(name = "password_hash")
-    @com.fasterxml.jackson.annotation.JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
     @Column(unique = true)
     private String email;

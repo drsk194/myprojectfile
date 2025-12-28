@@ -2,6 +2,7 @@ package com.examly.springapp.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Payment {
@@ -11,6 +12,7 @@ public class Payment {
     
     @OneToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     private Order order;
     
     private BigDecimal paymentAmount;
@@ -28,6 +30,13 @@ public class Payment {
         this.order = order;
         this.paymentAmount = paymentAmount;
         this.paymentMethod = paymentMethod;
+    }
+    
+    public Long getId() { 
+        return paymentId; 
+    }
+    public void setId(Long id) { 
+        this.paymentId = id; 
     }
     
     public Long getPaymentId() { 
