@@ -47,6 +47,10 @@ public class Customer {
     @JsonManagedReference
     private List<Order> orders;
     
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference("customer-userRoleMapping")
+    private List<UserRoleMapping> userRoleMappings;
+    
     public Customer() {}
     
     public Customer(String firstName, String lastName, String email, String phone, Status status) {
@@ -141,5 +145,12 @@ public class Customer {
     }
     public void setRole(Role role) {
         this.role = role;
+    }
+    
+    public List<UserRoleMapping> getUserRoleMappings() {
+        return userRoleMappings;
+    }
+    public void setUserRoleMappings(List<UserRoleMapping> userRoleMappings) {
+        this.userRoleMappings = userRoleMappings;
     }
 }

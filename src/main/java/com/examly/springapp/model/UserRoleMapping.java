@@ -2,6 +2,7 @@ package com.examly.springapp.model;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class UserRoleMapping {
@@ -11,10 +12,12 @@ public class UserRoleMapping {
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id")
+    @JsonBackReference("customer-userRoleMapping")
     private Customer user;
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id")
+    @JsonBackReference("role-userRoleMapping")
     private Role role;
 
     public UserRoleMapping() {}
